@@ -102,10 +102,33 @@ nav.addEventListener('mouseout', handleOpacity.bind('1'));
 // window.addEventListener('scroll', function (e) {
 //  // console.log(e);
 // });
-const obsCallback = function () {};
+const height = nav.getBoundingClientRect().height;
 
-const obsOptions = {};
+const header = document.querySelector('header');
+const obsCallback = function (entries, observer) {
+  //entries.forEach(entry => {
+  //console.log(entry);
+  // if (entry.isIntersecting) {
+  //   nav.classList.add('sticky');
+  // } else {
+  //   //nav.classList.remove('sticky');
+  // }
+  // });
+  const [entry] = entries;
+  //console.log(entry.isIntersecting);
+  if (!entry.isIntersecting) {
+    nav.classList.add('sticky');
+  } else {
+    nav.classList.remove('sticky');
+  }
+};
+
+const obsOptions = {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${height}px`,
+};
 
 // Intersection observer API
 const observer = new IntersectionObserver(obsCallback, obsOptions);
-observer.observe(section1);
+observer.observe(header);
